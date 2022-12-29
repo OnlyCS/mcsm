@@ -1,0 +1,19 @@
+[application]
+name = "mcsm"
+default_platform = "web"
+out_dir = "dist"
+asset_dir = "public"
+
+[web.app]
+title = "Minecraft Server Manager"
+
+[web.watcher]
+reload_html = true
+watch_path = ["src", "public", "styles"]
+
+[web.resource]
+style = ["/css/index.css"]
+script = []
+
+[web.resource.dev]
+script = []

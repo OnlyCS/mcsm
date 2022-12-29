@@ -1,0 +1,41 @@
+@import './globals.scss';
+
+* {
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	color: #ecedee;
+}
+
+body,
+html,
+div#main {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+
+.background,
+html {
+	background: $bg;
+}
+
+.layer0 {
+	background: $accent0;
+}
+
+.layer1 {
+	background: $accent1;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	margin: 0;
+
+	/* the only thing changing is font size */
+	font-weight: 500;
+}
