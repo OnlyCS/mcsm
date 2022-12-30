@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
 
-use crate::components::tooltip::{Tooltip, TooltipLocations};
+use crate::{components::tooltip::{Tooltip, TooltipLocations}, types::sizes::DefaultSizes};
 
 pub fn Sidebar(cx: Scope) -> Element {
     cx.render(rsx! {
@@ -10,11 +10,10 @@ pub fn Sidebar(cx: Scope) -> Element {
 
             Tooltip {
                 text: "Home",
-                location: TooltipLocations::Top,
+                location: TooltipLocations::Right,
+				size: DefaultSizes::LG
 
-                p {
-                    "bozo"
-                }
+                h1 { "MCSM" }
             }
         }
     })

@@ -37,79 +37,121 @@ h6 {
   font-weight: 500;
 }
 
-/* https://codepen.io/neogomo/pen/BjqJzr */
+@keyframes vertical_tooltip {
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+@keyframes horizontal_tooltip {
+  to {
+    opacity: 1;
+    transform: translate(0, -50%);
+  }
+}
+/* Tooltip */
 .tooltip {
   position: relative;
 }
 .tooltip::before, .tooltip::after {
-  display: block;
-  opacity: 0;
+  text-transform: none;
+  font-size: 0.9rem;
+  line-height: 1;
+  user-select: none;
   pointer-events: none;
   position: absolute;
-  transform: translate3d(0, -0.5rem, 0);
-  transition: all 0.15s ease-in-out;
-}
-.tooltip::after {
-  border-right: 0.35rem solid transparent;
-  border-bottom: 0.35rem solid blue;
-  border-left: 0.35rem solid transparent;
-  content: "";
-  height: 0;
-  width: 0;
+  display: none;
+  opacity: 0;
 }
 .tooltip::before {
-  background: yellow;
-  border-radius: 0.25rem;
-  color: red;
+  content: "";
+  border: 0.25rem solid transparent;
+  z-index: 1001;
+}
+.tooltip::after {
   content: attr(tooltip-text);
-  padding: 0.25rem;
+  text-align: center;
+  min-width: 3rem;
+  max-width: 21rem;
   white-space: nowrap;
-  font-size: 0.75rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 1ch 1.5ch;
+  border-radius: 0.3ch;
+  box-shadow: 0 1rem 2rem -0.5rem #000;
+  background: #000;
+  color: #ecedee;
+  z-index: 1000;
 }
 .tooltip:hover::after, .tooltip:hover::before {
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
+  display: block;
 }
-
-.tooltip.bottom::after {
-  top: 1.35rem;
-  left: calc(50% - 0.35rem);
-}
-.tooltip.bottom::before {
-  top: 1.7rem;
-}
-
-.tooltip.right::after {
-  left: calc(100% + 0.35rem);
-  bottom: calc(50% - 0.175rem);
-}
-.tooltip.right:hover::after {
-  transform: rotate(-90deg);
-}
-.tooltip.right::before {
-  margin-bottom: 50%;
-  left: calc(100% + 0.9rem);
-}
-
-.tooltip.left::after {
-  right: calc(100% + 0.35rem);
-  bottom: calc(50% - 0.175rem);
-}
-.tooltip.left:hover::after {
-  transform: rotate(90deg);
-}
-.tooltip.left::before {
-  margin-bottom: 50%;
-  right: calc(100% + 0.9rem);
-}
-
-.tooltip.top::after {
-  bottom: 1.35rem;
-  left: calc(50% - 0.35rem);
-}
-.tooltip.top:hover::after {
-  transform: rotate(180deg);
+.tooltip.top::before, .tooltip.top::after {
+  left: 50%;
+  transform: translate(-50%, -0.5rem);
 }
 .tooltip.top::before {
-  bottom: 1.7rem;
+  bottom: 100%;
+  border-bottom-width: 0;
+  border-top-color: #000;
+}
+.tooltip.top::after {
+  bottom: calc(100% + 0.25rem);
+}
+.tooltip.bottom::before, .tooltip.bottom::after {
+  left: 50%;
+  transform: translate(-50%, 0.5rem);
+}
+.tooltip.bottom::before {
+  top: 100%;
+  border-top-width: 0;
+  border-bottom-color: #000;
+}
+.tooltip.bottom::after {
+  top: calc(100% + 0.25rem);
+}
+.tooltip.left::before {
+  top: 50%;
+  border-right-width: 0;
+  border-left-color: #000;
+  left: -0.25rem;
+  transform: translate(-0.5rem, -50%);
+}
+.tooltip.left::after {
+  top: 50%;
+  right: calc(100% + 0.25rem);
+  transform: translate(-0.5rem, -50%);
+}
+.tooltip.right::before {
+  top: 50%;
+  border-left-width: 0;
+  border-right-color: #000;
+  right: -0.25rem;
+  transform: translate(0.5rem, -50%);
+}
+.tooltip.right::after {
+  top: 50%;
+  left: calc(100% + 0.25rem);
+  transform: translate(0.5rem, -50%);
+}
+.tooltip.top:hover::before, .tooltip.top:hover::after, .tooltip.bottom:hover::before, .tooltip.bottom:hover::after {
+  animation: vertical_tooltip 300ms ease-out forwards;
+}
+.tooltip.left:hover::before, .tooltip.left:hover::after, .tooltip.right:hover::before, .tooltip.right:hover::after {
+  animation: horizontal_tooltip 300ms ease-out forwards;
+}
+.tooltip.xs::after {
+  font-size: x-small;
+}
+.tooltip.sm::after {
+  font-size: small;
+}
+.tooltip.md::after {
+  font-size: medium;
+}
+.tooltip.lg::after {
+  font-size: large;
+}
+.tooltip.xl::after {
+  font-size: x-large;
 }

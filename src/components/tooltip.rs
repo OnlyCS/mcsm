@@ -1,10 +1,12 @@
 use dioxus::prelude::*;
 
+use crate::types::sizes::DefaultSizes;
+
 pub enum TooltipLocations {
     Top,
     Left,
     Right,
-    Bottom,
+    Bottom
 }
 
 #[derive(Props)]
@@ -14,6 +16,9 @@ pub struct TooltipProps<'a> {
 
 	#[props(default=TooltipLocations::Top)]
     location: TooltipLocations,
+
+	#[props(default=DefaultSizes::MD)]
+	size: DefaultSizes
 }
 
 pub fn Tooltip<'a>(cx: Scope<'a, TooltipProps<'a>>) -> Element {
@@ -22,12 +27,20 @@ pub fn Tooltip<'a>(cx: Scope<'a, TooltipProps<'a>>) -> Element {
 		TooltipLocations::Top => "top",
 		TooltipLocations::Left => "left",
 		TooltipLocations::Right => "right",
-		TooltipLocations::Bottom => "bottom",
+		TooltipLocations::Bottom => "bottom"
+	};
+
+	let size = match &cx.props.size {
+		DefaultSizes::XS => "xs",
+		DefaultSizes::SM => "sm",
+		DefaultSizes::MD => "md",
+		DefaultSizes::LG => "lg",
+		DefaultSizes::XL => "xl"
 	};
 
     cx.render(rsx! {
         div {
-            class: "tooltip {location}",
+            class: "tooltip {location} {size}",
             "tooltip-text": "{cx.props.text}",
 
             &cx.props.children

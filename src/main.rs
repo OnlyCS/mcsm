@@ -5,6 +5,7 @@ use pages::index::Index;
 
 pub mod components;
 pub mod pages;
+pub mod types;
 
 fn main() {
     dioxus::web::launch(app);

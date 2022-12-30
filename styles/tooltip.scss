@@ -1,103 +1,163 @@
-/* https://codepen.io/neogomo/pen/BjqJzr */
+@keyframes vertical_tooltip {
+	to {
+		opacity: 1;
+		transform: translate(-50%, 0);
+	}
+}
 
-$bg: yellow;
-$arr: blue;
-$text: red;
+@keyframes horizontal_tooltip {
+	to {
+		opacity: 1;
+		transform: translate(0, -50%);
+	}
+}
 
+
+/* Tooltip */
 .tooltip {
 	position: relative;
 
 	&::before,
 	&::after {
-		display: block;
-		opacity: 0;
+		text-transform: none;
+		font-size: .9rem;
+		line-height: 1;
+		user-select: none;
 		pointer-events: none;
 		position: absolute;
-		transform: translate3d(0, -.5rem, 0);
-		transition: all .15s ease-in-out;
-	}
+		display: none;
+		opacity: 0;
 
-	&::after {
-		border-right: .35rem solid transparent;
-		border-bottom: .35rem solid $arr;
-		border-left: .35rem solid transparent;
-		content: '';
-
-		height: 0;
-		width: 0;
 	}
 
 	&::before {
-		background: $bg;
-		border-radius: .25rem;
-		color: $text;
+		content: '';
+		border: .25rem solid transparent;
+		z-index: 1001;
+	}
+
+	&::after {
 		content: attr(tooltip-text);
-		padding: .25rem;
+		text-align: center;
+		min-width: 3rem;
+		max-width: 21rem;
 		white-space: nowrap;
-		font-size: .75rem;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		padding: 1ch 1.5ch;
+		border-radius: .3ch;
+		box-shadow: 0 1rem 2rem -.5rem $bg;
+		background: $bg;
+		color: $text;
+		z-index: 1000;
 	}
 
 	&:hover::after,
 	&:hover::before {
-		opacity: 1;
-		transform: translate3d(0, 0, 0);
-	}
-}
-
-.tooltip.bottom {
-	&::after {
-		top: 1.35rem;
-		left: calc(50% - .35rem);
+		display: block;
 	}
 
-	&::before {
-		top: 1.7rem;
-	}
-}
+	&.top {
+		&::before,
+		&::after {
+			left: 50%;
+			transform: translate(-50%, -.5rem);
+		}
 
-.tooltip.right {
-	&::after {
-		left: calc(100% + .35rem);
-		bottom: calc(50% - calc(.35rem / 2));
-	}
+		&::before {
+			bottom: 100%;
+			border-bottom-width: 0;
+			border-top-color: $bg;
+		}
 
-	&:hover::after {
-		transform: rotate(-90deg);
-	}
-
-	&::before {
-		margin-bottom: 50%;
-		left: calc(100% + .9rem);
-	}
-}
-
-.tooltip.left {
-	&::after {
-		right: calc(100% + .35rem);
-		bottom: calc(50% - calc(.35rem / 2));
+		&::after {
+			bottom: calc(100% + .25rem);
+		}
 	}
 
-	&:hover::after {
-		transform: rotate(90deg);
+	&.bottom {
+		&::before,
+		&::after {
+			left: 50%;
+			transform: translate(-50%, .5rem);
+		}
+
+		&::before {
+			top: 100%;
+			border-top-width: 0;
+			border-bottom-color: $bg;
+		}
+
+		&::after {
+			top: calc(100% + .25rem);
+		}
 	}
 
-	&::before {
-		margin-bottom: 50%;
-		right: calc(100% + .9rem);
-	}
-}
+	&.left {
+		&::before {
+			top: 50%;
+			border-right-width: 0;
+			border-left-color: $bg;
+			left: calc(0rem - .25rem);
+			transform: translate(-.5rem, -50%);
+		}
 
-.tooltip.top {
-	&::after {
-		bottom: 1.35rem;
-		left: calc(50% - .35rem);
+		&::after {
+			top: 50%;
+			right: calc(100% + .25rem);
+			transform: translate(-.5rem, -50%);
+		}
 	}
 
-	&:hover::after {
-		transform: rotate(180deg);
+	&.right {
+		&::before {
+			top: 50%;
+			border-left-width: 0;
+			border-right-color: $bg;
+			right: calc(0rem - .25rem);
+			transform: translate(.5rem, -50%);
+		}
+
+		&::after {
+			top: 50%;
+			left: calc(100% + .25rem);
+			transform: translate(.5rem, -50%);
+		}
 	}
 
-	&::before {
-		bottom: 1.7rem;
+	&.top,
+	&.bottom {
+		&:hover::before,
+		&:hover::after {
+			animation: vertical_tooltip 300ms ease-out forwards;
+		}
+	}
+
+	&.left,
+	&.right {
+		&:hover::before,
+		&:hover::after {
+			animation: horizontal_tooltip 300ms ease-out forwards;
+		}
+	}
+
+	&.xs::after {
+		font-size: x-small;
+	}
+
+	&.sm::after {
+		font-size: small;
+	}
+
+	&.md::after {
+		font-size: medium;
+	}
+
+	&.lg::after {
+		font-size: large;
+	}
+
+	&.xl::after {
+		font-size: x-large;
 	}
 }
